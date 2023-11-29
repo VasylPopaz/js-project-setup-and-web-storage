@@ -8,7 +8,7 @@ let formData = {};
 
 function onFormInput(event) {
   formData[event.target.name] = event.target.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(user));
+  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 }
 
 function onPageLoad() {
@@ -18,7 +18,12 @@ function onPageLoad() {
   refs.message.value = formData?.message;
 }
 
-function onFormSubmit() {
+function onFormSubmit(event) {
+  event.preventDefault();
+  if (!refs.email.value || !refs.message.value) {
+    alert('Введіть данні!');
+    return;
+  }
   localStorage.clear();
   refs.form.reset();
 }
