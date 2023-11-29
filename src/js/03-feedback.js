@@ -14,8 +14,10 @@ function onFormInput(event) {
 function onPageLoad() {
   if (!localStorage.getItem('feedback-form-state')) return;
   formData = JSON.parse(localStorage.getItem('feedback-form-state'));
-  refs.email.value = formData?.email;
-  refs.message.value = formData?.message;
+  const keys = Object.keys(formData);
+  for (const key of keys) {
+    refs[key].value = formData[key];
+  }
 }
 
 function onFormSubmit(event) {
