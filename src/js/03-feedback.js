@@ -12,7 +12,7 @@ function onFormInput(event) {
 }
 
 function onPageLoad() {
-  if (!localStorage.length) return;
+  if (!localStorage.getItem('feedback-form-state')) return;
   formData = JSON.parse(localStorage.getItem('feedback-form-state'));
   refs.email.value = formData?.email;
   refs.message.value = formData?.message;
@@ -24,6 +24,7 @@ function onFormSubmit(event) {
     alert('Введіть данні!');
     return;
   }
+  console.log(formData);
   localStorage.clear();
   refs.form.reset();
 }

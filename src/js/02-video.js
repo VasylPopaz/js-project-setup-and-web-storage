@@ -9,6 +9,7 @@ player.on(
   }, 1000)
 );
 function handleSubmit() {
+  if (!localStorage.getItem('videoplayer-current-time')) return;
   player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
 }
 document.addEventListener('submit', handleSubmit());
