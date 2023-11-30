@@ -36,4 +36,4 @@ function onFormSubmit(event) {
 
 document.addEventListener('DOMContentLoaded', onPageLoad);
 form.addEventListener('input', throttle(onFormInput, 500));
-document.addEventListener('submit', onFormSubmit);
+form.addEventListener('submit', onFormSubmit);
