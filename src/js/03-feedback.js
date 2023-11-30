@@ -1,9 +1,6 @@
 import throttle from 'lodash.throttle';
-const refs = {
-  form: document.querySelector('.feedback-form'),
-  email: document.querySelector('input[name=email]'),
-  message: document.querySelector('textarea[name=message]'),
-};
+
+const form = document.querySelector('.feedback-form');
 let formData = {};
 
 function onFormInput(event) {
@@ -12,25 +9,31 @@ function onFormInput(event) {
 }
 
 function onPageLoad() {
-  if (!localStorage.getItem('feedback-form-state')) return;
-  formData = JSON.parse(localStorage.getItem('feedback-form-state'));
-  const keys = Object.keys(formData);
-  for (const key of keys) {
-    refs[key].value = formData[key];
+  const savedKey = localStorage.getItem('feedback-form-state');
+  if (!savedKey) return;
+  try {
+    formData = JSON.parse(savedKey);
+  } catch (error) {
+    console.log(error.name);
+    console.log(error.message);
   }
+  Object.keys(formData).forEach(key => {
+    form[key].value = formData[key];
+  });
 }
 
 function onFormSubmit(event) {
   event.preventDefault();
-  if (!refs.email.value || !refs.message.value) {
+  if (!form['email'].value || !form['message'].value) {
     alert('Введіть данні!');
     return;
   }
   console.log(formData);
-  localStorage.clear();
-  refs.form.reset();
+  formData = {};
+  localStorage.removeItem('feedback-form-state');
+  form.reset();
 }
 
 document.addEventListener('DOMContentLoaded', onPageLoad);
-refs.form.addEventListener('input', throttle(onFormInput, 500));
+form.addEventListener('input', throttle(onFormInput, 500));
 document.addEventListener('submit', onFormSubmit);

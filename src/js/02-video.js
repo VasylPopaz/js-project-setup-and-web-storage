@@ -8,8 +8,6 @@ player.on(
     localStorage.setItem('videoplayer-current-time', getTime.seconds);
   }, 1000)
 );
-function handleSubmit() {
-  if (!localStorage.getItem('videoplayer-current-time')) return;
-  player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
-}
-document.addEventListener('submit', handleSubmit());
+const savedTime = localStorage.getItem('videoplayer-current-time');
+if (!savedTime) return;
+player.setCurrentTime(savedTime);
