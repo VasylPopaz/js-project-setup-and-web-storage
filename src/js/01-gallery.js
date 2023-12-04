@@ -14,7 +14,7 @@ new SimpleLightbox('.gallery a', {
 });
 
 function createMarkup(items) {
-  items
+  return items
     .map(
       item => `<li class="gallery__item">
    <a class="gallery__link" href=${item.original}>
